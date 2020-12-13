@@ -1,0 +1,43 @@
+<html>
+  <body>
+
+    <form action="albuminsert.php" method="post">
+
+    Title: <input type="text" name= 'form_albumtitle' required><br>
+
+    Band: <select name='form_band'>
+<?php
+$conn = mysqli_connect("db.luddy.indiana.edu","i308f20_team08","my+sql=i308f20_team08","i308f20_team08");
+  //Check connection
+  if (!$conn) {
+    die("Connection failed: " . mysqli_connect_error());
+  }
+  $results = mysqli_query($conn, "SELECT id, title FROM band");
+  while ($row = mysqli_fetch_assoc($results)) {
+    unset($id, $name);
+    $id = $row['id'];
+    $name = $row['title'];
+    echo '<option value=".$id.">'.$name.'</option>';
+  }
+?>
+</select><br>
+    Published Year: <input type= 'number' name= 'form_pubyear'><br>
+
+    Format: <select> name='form_format'
+      <option value='album'>Album</option>
+      <option value="cd">CD</option>
+      <option value="wav">Wav</option>
+      <option value="mp3">MP3</option>
+      </select>
+    <br>
+    <input type="submit" value ="Insert Album" >
+    <br>
+    </form>
+
+    <form action='albumselect.php' method='post'>
+    Select all Albums:
+    <input type="submit" value='Select Album Table'>
+    </form>
+
+  </body>
+</html>
